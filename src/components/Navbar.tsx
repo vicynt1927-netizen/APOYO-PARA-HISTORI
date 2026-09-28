@@ -10,6 +10,7 @@ interface NavbarProps {
   onOpenAvatarModal: () => void;
   onOpenSavedModal: () => void;
   onOpenHelpModal: () => void;
+  onOpenDriveAssistant: () => void;
   onNewActivity: () => void;
   savedCount: number;
 }
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAvatarModal,
   onOpenSavedModal,
   onOpenHelpModal,
+  onOpenDriveAssistant,
   onNewActivity,
   savedCount,
 }) => {
@@ -136,6 +138,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {savedCount}
                 </span>
               )}
+            </button>
+
+            {/* Google Drive AI Assistant Button */}
+            <button
+              onClick={onOpenDriveAssistant}
+              className="bg-gradient-to-r from-emerald-500/80 to-teal-500/80 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm px-3 py-1.5 rounded-xl border border-emerald-300/40 flex items-center gap-1.5 transition-all shadow-xs"
+              title="Asistente de IA para explorar archivos desde Google Drive"
+            >
+              <span className="text-base">🤖</span>
+              <span className="hidden md:inline">Drive IA</span>
             </button>
 
             {/* Sound Toggle */}

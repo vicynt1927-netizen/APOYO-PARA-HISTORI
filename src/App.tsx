@@ -17,6 +17,7 @@ import { ResultsModal } from './components/ResultsModal';
 import { SavedActivitiesModal } from './components/SavedActivitiesModal';
 import { HelpPwaModal } from './components/HelpPwaModal';
 import { StudentAvatarModal } from './components/StudentAvatarModal';
+import { DriveAssistantModal } from './components/DriveAssistantModal';
 import {
   getSavedActivities,
   saveActivity,
@@ -45,6 +46,7 @@ export default function App() {
   const [showSavedModal, setShowSavedModal] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const [showDriveModal, setShowDriveModal] = useState(false);
 
   // Load persistence on mount
   useEffect(() => {
@@ -54,6 +56,11 @@ export default function App() {
 
   const handleSelectMaterial = (material: MaterialSource) => {
     setCurrentMaterial(material);
+  };
+
+  const handleLoadMaterialFromDrive = (material: MaterialSource) => {
+    setCurrentMaterial(material);
+    setActiveActivity(null);
   };
 
   const handleGenerateActivity = async (type: ActivityType, difficulty: Difficulty) => {
@@ -135,6 +142,7 @@ export default function App() {
         onOpenAvatarModal={() => setShowAvatarModal(true)}
         onOpenSavedModal={() => setShowSavedModal(true)}
         onOpenHelpModal={() => setShowHelpModal(true)}
+        onOpenDriveAssistant={() => setShowDriveModal(true)}
         onNewActivity={() => setActiveActivity(null)}
         savedCount={savedActivities.length}
       />
@@ -153,6 +161,7 @@ export default function App() {
               <MaterialLoader
                 currentMaterial={currentMaterial}
                 onSelectMaterial={handleSelectMaterial}
+                onOpenDriveAssistant={() => setShowDriveModal(true)}
               />
 
               {/* Step 2: Activity Selector */}
@@ -248,6 +257,12 @@ export default function App() {
         profile={studentProfile}
         onSaveProfile={handleSaveProfile}
         onClose={() => setShowAvatarModal(false)}
+      />
+
+      <DriveAssistantModal
+        isOpen={showDriveModal}
+        onClose={() => setShowDriveModal(false)}
+        onLoadMaterialFromDrive={handleLoadMaterialFromDrive}
       />
 
     </div>

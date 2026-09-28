@@ -7,9 +7,10 @@ import { BookOpen, Upload, FileText, CheckCircle2, AlertTriangle, Layers, Chevro
 interface MaterialLoaderProps {
   currentMaterial: MaterialSource | null;
   onSelectMaterial: (material: MaterialSource) => void;
+  onOpenDriveAssistant?: () => void;
 }
 
-export const MaterialLoader: React.FC<MaterialLoaderProps> = ({ currentMaterial, onSelectMaterial }) => {
+export const MaterialLoader: React.FC<MaterialLoaderProps> = ({ currentMaterial, onSelectMaterial, onOpenDriveAssistant }) => {
   const [activeTab, setActiveTab] = useState<'demo' | 'paste' | 'upload'>('demo');
   
   // Paste text state
@@ -185,6 +186,17 @@ export const MaterialLoader: React.FC<MaterialLoaderProps> = ({ currentMaterial,
             <Upload className="w-4 h-4 text-indigo-600" />
             <span>Cargar Archivo</span>
           </button>
+          {onOpenDriveAssistant && (
+            <button
+              type="button"
+              onClick={onOpenDriveAssistant}
+              className="px-3.5 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs hover:from-emerald-700 hover:to-teal-700 active:scale-95"
+              title="Explorar archivos de Google Drive con el Asistente de IA"
+            >
+              <Sparkles className="w-4 h-4 text-amber-200" />
+              <span>Google Drive IA</span>
+            </button>
+          )}
         </div>
       </div>
 

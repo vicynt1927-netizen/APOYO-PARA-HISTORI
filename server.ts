@@ -52,6 +52,92 @@ NORMAS OBLIGATORIAS:
 5. Incluye explicaciones amables de por qué cada respuesta es correcta o qué conviene repasar.
 6. Cita siempre el tema, capítulo o páginas cuando se indiquen.`;
 
+// AI Assistant for Google Drive file exploration
+app.post('/api/drive-assistant', async (req: Request, res: Response) => {
+  const { documentText, fileName, userQuestion, chatHistory = [] } = req.body;
+
+  if (!documentText || typeof documentText !== 'string' || documentText.trim().length === 0) {
+    return res.status(400).json({ error: 'No se recibió contenido de texto del archivo de Google Drive.' });
+  }
+
+  const cleanDoc = documentText.slice(0, 20000);
+  const question = userQuestion || 'Hazme un resumen comprensivo de este documento y dime qué personajes y hechos históricos importantes contiene.';
+
+  if (!ai || !apiKey) {
+    // Helpful local fallback if API key is absent
+    const firstLines = cleanDoc.split('\n').filter(Boolean).slice(0, 5).join(' ');
+    return res.json({
+      success: true,
+      answer: `¡Hola, explorador(a)! He leído el archivo "${fileName}".\n\nEste documento trata sobre la historia de México y contiene temas como:\n${firstLines.slice(0, 300)}...\n\n¿Quieres que generemos un cuestionario, crucigrama o tarjetas de memoria con este archivo?`,
+      suggestedQuestions: [
+        '¿Quiénes son los personajes clave de este texto?',
+        '¿Qué fechas o lugares importantes se mencionan?',
+        '¿Cuál es la idea principal para mi cuaderno de 4° grado?'
+      ]
+    });
+  }
+
+  try {
+    const systemPrompt = `Eres "Quetzalito", el asistente de inteligencia artificial pedagógico de "Explora México: Grandeza y Diversidad".
+Tu misión es acompañar a niñas y niños de 4° de primaria (9 a 10 años) y a sus docentes a explorar, comprender y aprender a partir de los archivos y lecturas que abran desde su Google Drive.
+
+REGLAS PEDAGÓGICAS ESTRICTAS:
+1. Lenguaje cálido, entusiasta, claro, motivador y respetuoso con la edad escolar (4° de primaria).
+2. Estricta fidelidad al documento: responde basándote ÚNICAMENTE en el contenido del archivo de Google Drive proporcionado. Si un dato no aparece en el texto, dilo amablemente: "En este archivo no se menciona ese dato, pero lo que sí nos enseña es...".
+3. NO inventes hechos, fechas ni personajes que no estén en el documento.
+4. Si el estudiante te hace preguntas sobre historia, responde de forma estructurada con viñetas o párrafos cortos y comprensibles.
+5. Devuelve siempre una respuesta en formato JSON estructurado con:
+   - "answer": respuesta explicada en español para niños de 4° grado.
+   - "keyEntities": arreglo con 2 a 4 personajes, lugares o conceptos destacados en la respuesta.
+   - "suggestedQuestions": arreglo de 3 preguntas breves y curiosas que el estudiante puede pulsar a continuación para seguir explorando el archivo.`;
+
+    const contents = [
+      ...chatHistory,
+      {
+        role: 'user',
+        parts: [
+          {
+            text: `ARCHIVO DE GOOGLE DRIVE: "${fileName}"\n\nCONTENIDO DEL ARCHIVO:\n"""\n${cleanDoc}\n"""\n\nPREGUNTA O PETICIÓN DEL ESTUDIANTE O DOCENTE:\n${question}`
+          }
+        ]
+      }
+    ];
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.8-flash',
+      contents,
+      config: {
+        systemInstruction: systemPrompt,
+        responseMimeType: 'application/json',
+        temperature: 0.3,
+      }
+    });
+
+    const text = response.text;
+    if (!text) {
+      throw new Error('Respuesta vacía del asistente.');
+    }
+
+    const parsed = JSON.parse(text);
+    return res.json({
+      success: true,
+      answer: parsed.answer,
+      keyEntities: parsed.keyEntities || [],
+      suggestedQuestions: parsed.suggestedQuestions || [
+        '¿Quiénes son los personajes principales?',
+        '¿Qué lugares se mencionan en la lectura?',
+        '¿Por qué este acontecimiento es importante para México?'
+      ]
+    });
+  } catch (error: any) {
+    console.error('Error en asistente de Drive:', error);
+    return res.status(500).json({
+      error: 'Hubo un error al consultar el asistente de IA para este archivo.',
+      details: error?.message || 'Error desconocido'
+    });
+  }
+});
+
 // Activity generation endpoint
 app.post('/api/generate-activity', async (req: Request, res: Response) => {
   const { materialText, activityType, difficulty, chapterTitle, pages, studentGrade = '4° de Primaria' } = req.body;
