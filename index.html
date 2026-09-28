@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explora México: Grandeza y Diversidad</title>
+    <meta name="description" content="Aplicación educativa interactiva para 4° de primaria para repasar y comprender el libro México, grandeza y diversidad mediante 13 tipos de actividades pedagógicas, imprimibles y modo sin conexión." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Explora México: Grandeza y Diversidad" />
+    <meta property="og:description" content="Repasa Historia de México para 4° de primaria con actividades interactivas, tarjetas, crucigramas, líneas del tiempo y hojas imprimibles." />
+    <meta property="og:image" content="/icon-512.svg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Explora México: Grandeza y Diversidad" />
+    <meta name="twitter:description" content="Repasa Historia de México para 4° de primaria con actividades interactivas, tarjetas, crucigramas, líneas del tiempo y hojas imprimibles." />
+    <meta name="twitter:image" content="/icon-512.svg" />
+
+    <!-- PWA & Mobile Web App -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#c2410c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ExploraMex" />
+    <link rel="icon" type="image/svg+xml" href="/icon-192.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.svg" />
+
+    <!-- Fonts: Outfit and Nunito for warm, high-contrast, child-friendly typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#faf6ef] text-[#292524] antialiased min-h-screen selection:bg-amber-200 selection:text-amber-900 font-['Nunito',sans-serif]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.log('SW registration error:', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

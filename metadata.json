@@ -1,0 +1,6 @@
+{
+  "name": "Explora México: Grandeza y Diversidad",
+  "description": "Aplicación educativa interactiva para 4° de primaria para repasar y comprender el libro México, grandeza y diversidad mediante 13 tipos de actividades pedagógicas, imprimibles y modo sin conexión.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

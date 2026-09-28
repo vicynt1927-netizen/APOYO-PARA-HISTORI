@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="mexicoSun" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="192" height="192" rx="40" fill="#fffbeb"/>
+  <circle cx="96" cy="74" r="42" fill="#fbbf24" opacity="0.4" />
+  <circle cx="96" cy="74" r="30" fill="#f59e0b" />
+  <!-- Sun rays -->
+  <path d="M96 28 L96 36 M96 112 L96 120 M50 74 L58 74 M134 74 L142 74 M63 41 L69 47 M123 101 L129 107 M63 107 L69 101 M123 47 L129 41" stroke="#d97706" stroke-width="4" stroke-linecap="round"/>
+  <!-- Mesoamerican Pyramid Steps -->
+  <path d="M46 138 L146 138 L138 122 L54 122 Z" fill="#b45309" filter="url(#shadow)"/>
+  <path d="M58 122 L134 122 L126 108 L66 108 Z" fill="#d97706"/>
+  <path d="M70 108 L122 108 L116 96 L76 96 Z" fill="#f59e0b"/>
+  <rect x="88" y="86" width="16" height="10" rx="2" fill="#92400e"/>
+  <!-- Open Book Symbol of Learning -->
+  <path d="M48 152 C68 144, 90 148, 96 156 C102 148, 124 144, 144 152 L144 164 C124 156, 102 160, 96 168 C90 160, 68 156, 48 164 Z" fill="#047857"/>
+  <path d="M96 156 L96 168" stroke="#065f46" stroke-width="2"/>
+</svg>

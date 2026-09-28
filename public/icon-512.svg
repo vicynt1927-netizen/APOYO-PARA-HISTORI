@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="mexicoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <filter id="shadowBig" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="100" fill="url(#mexicoGrad)"/>
+  
+  <!-- Outer warm decorative circle -->
+  <circle cx="256" cy="200" r="120" fill="#fef08a" opacity="0.6"/>
+  <circle cx="256" cy="200" r="85" fill="#f59e0b" filter="url(#shadowBig)"/>
+  
+  <!-- Sun rays -->
+  <g stroke="#d97706" stroke-width="10" stroke-linecap="round">
+    <line x1="256" y1="80" x2="256" y2="102"/>
+    <line x1="256" y1="298" x2="256" y2="320"/>
+    <line x1="136" y1="200" x2="158" y2="200"/>
+    <line x1="354" y1="200" x2="376" y2="200"/>
+    <line x1="171" y1="115" x2="187" y2="131"/>
+    <line x1="325" y1="269" x2="341" y2="285"/>
+    <line x1="171" y1="285" x2="187" y2="269"/>
+    <line x1="325" y1="131" x2="341" y2="115"/>
+  </g>
+
+  <!-- Pyramid Archeological Silhouette -->
+  <path d="M120 370 L392 370 L370 330 L142 330 Z" fill="#b45309" filter="url(#shadowBig)"/>
+  <path d="M152 330 L360 330 L340 295 L172 295 Z" fill="#c2410c"/>
+  <path d="M185 295 L327 295 L310 265 L202 265 Z" fill="#ea580c"/>
+  <rect x="236" y="240" width="40" height="25" rx="5" fill="#78350f"/>
+
+  <!-- Open Educational Book -->
+  <path d="M125 405 C180 385, 240 395, 256 415 C272 395, 332 385, 387 405 L387 440 C332 420, 272 430, 256 450 C240 430, 180 420, 125 440 Z" fill="#047857" filter="url(#shadowBig)"/>
+  <line x1="256" y1="415" x2="256" y2="450" stroke="#064e3b" stroke-width="4"/>
+</svg>
